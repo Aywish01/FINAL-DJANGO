@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<a href="{% url 'vet-add' %}" class="custom-btn btn btn-primary">Add New Vet</a><br>
+<section class="cards-container">
+  <!-- Display Vet Cards -->
+  {% for vet in object_list %}
+    <div class="card-box">
+        <div class="card">
+            <div class="card-type" id="vet">
+                <div class="card-image" id="vet-img">
+                    <!-- Check if the vet has a profile image -->
+                    {% if vet.ProfileImage %}
+                        <img src="{{ vet.ProfileImage.url }}" alt="{{ vet.FirstName }} {{ vet.LastName }} Image">
+                    {% else %}
+                        <p>No image available</p>
+                    {% endif %}
+                </div>
+                <div class="card-name">
+                    <h2 class="sbs"> {{ vet.FirstName }} {{ vet.LastName }}</h2>
+                    <hr />
+                </div>
+                <table class="card-stats">
+            <tbody>
+              <tr>
+                <th>Email:</th>
+                <td>{{ vet.Email }}</td>
+              </tr>
+              <tr>
+                <th>Clinic:</th>
+                <td>{{ vet.ClinicName }}</td>
+              </tr>
+              <!-- Add more vet fields as needed -->
+              <tr>
+                <th>Action:</th>
+                <td>
+                  <a href="{% url 'vet-update' vet.VetID %}" >Edit</a> |
+                  <a href="{% url 'vet-delete' vet.VetID %}" >Delete</a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <hr />
+      </div>
+    </div>
+  {% endfor %}
+  <div>
+    {% include 'includes/pagination.html' %}
+  </div>
+</section>
+
+{% endblock %}

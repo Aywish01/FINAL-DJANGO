@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<a href="{% url 'pet-add' %}" class="custom-btn btn btn-primary">Add New Pet</a><br>
+<section class="pets-container">
+    <table class="styled-table">
+      <tbody>
+        <tr>
+          <th>Pet Name</th>
+          <th>Species</th>
+          <th>Breed</th>
+          <th>Owner</th>
+          <th>Action</th>
+        </tr>
+        {% for pet in object_list %}
+        <tr>
+          <td>{{ pet.PetName }}</td>
+          <td>{{ pet.Species }}</td>
+          <td>{{ pet.Breed }}</td>
+          <td>{{ pet.Owner }}</td>  <!-- Assuming Owner is the field in your model -->
+          <td>
+            <a href="{% url 'pet-update' pet.PetID %}">Edit</a> 
+            <a href="{% url 'pet-delete' pet.PetID %}">Delete</a>
+          </td>
+        </tr>
+        {% empty %}
+                <tr>
+                <td colspan="5" style="text-align: center;">
+                    <p>No Records Found</p>
+                </td>
+                </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+</section>
+<div>
+    {% include 'includes/pagination.html' %}
+</div> 
+{% endblock %}

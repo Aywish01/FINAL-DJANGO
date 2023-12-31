@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+  <a href="{% url 'treatment-add' %}" class="custom-btn btn btn-primary">Add New Treatment</a><br>
+  <section class="treatments-container">
+    <table class="styled-table">
+      <tbody>
+        <tr>
+          <th>Treatment Name</th>
+          <th>Description</th>
+          <th>Pet</th>
+          <th>Action</th>
+        </tr>
+        {% for treatment in object_list %}
+          <tr>
+            <td>{{ treatment.TreatmentName }}</td>
+            <td>{{ treatment.Description }}</td>
+            <td>{{ treatment.PetID }}</td>
+            <td>
+              <a href="{% url 'treatment-update' treatment.TreatmentID %}">Edit</a> |
+              <a href="{% url 'treatment-delete' treatment.TreatmentID %}">Delete</a>
+            </td>
+          </tr>
+        {% empty %}
+          <tr>
+            <td colspan="4" style="text-align: center;">
+              <p>No Records Found</p>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </section>
+  <div>
+    {% include 'includes/pagination.html' %}
+  </div>
+{% endblock %}

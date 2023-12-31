@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+  <a href="{% url 'prescription-add' %}" class="custom-btn btn btn-primary">Add New Prescription</a><br>
+  <section class="prescriptions-container">
+    <table class="styled-table">
+      <tbody>
+        <tr>
+          <th>Medication Name</th>
+          <th>Dosage</th>
+          <th>Vet</th>
+          <th>Pet</th>
+          <th>Action</th>
+        </tr>
+        {% for prescription in object_list %}
+          <tr>
+            <td>{{ prescription.MedicationName }}</td>
+            <td>{{ prescription.Dosage }}</td>
+            <td>{{ prescription.VetID }}</td>
+            <td>{{ prescription.PetID }}</td>
+            <td>
+              <a href="{% url 'prescription-update' prescription.PrescriptionID %}">Edit</a> |
+              <a href="{% url 'prescription-delete' prescription.PrescriptionID %}">Delete</a>
+            </td>
+          </tr>
+        {% empty %}
+          <tr>
+            <td colspan="5" style="text-align: center;">
+              <p>No Records Found</p>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </section>
+  <div>
+    {% include 'includes/pagination.html' %}
+  </div>
+{% endblock %}

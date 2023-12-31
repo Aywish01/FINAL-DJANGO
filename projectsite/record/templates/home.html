@@ -1,0 +1,18 @@
+<!-- home.html -->
+{% extends 'base.html' %}
+
+{% block title %}Home | Your Site Name{% endblock %}
+
+{% block content %}
+  <h1>Welcome to Your Site Name</h1>
+  <p>This is the home page of your website.</p>
+
+  <h2>Quick Links</h2>
+  <ul>
+    <li><a href="{% url 'vet-list' %}">Vets</a></li>
+    <li><a href="{% url 'pet-list' %}">Pets</a></li>
+    <li><a href="{% url 'appointment-list' %}">Appointments</a></li>
+    <li><a href="{% url 'treatment-list' %}">Treatment</a></li>
+    <li><a href="{% url 'treatment-list' %}">Prescription</a></li>
+  </ul>
+{% endblock %}
